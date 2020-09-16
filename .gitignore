@@ -1,3 +1,11 @@
 *
 !.vimrc
 !.gitignore
+
+!.vim/
+!.vim/coc-settings.json
+
+!.config/
+!.config/coc/
+!.config/coc/ultisnips/
+!.config/coc/ultisnips/*.snippets
