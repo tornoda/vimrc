@@ -103,8 +103,8 @@ set vb t_vb=
 set tm=500
 " set cursorcolumn
 set cursorline
-" set mouse=a         " 设置鼠标滚动
-" set mouse=v   " 若要使用鼠标复制内容到剪切板
+set mouse=a         " 设置鼠标滚动
+set mouse=v   " 若要使用鼠标复制内容到剪切板
 
 set scrolloff=4     " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
 " :se so=7            " 上面配置的简写
@@ -123,8 +123,10 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
-nnoremap <D-j> <C-f> " 下翻页
-nnoremap <D-k> <C-b> " 上翻页
+if has("mac")
+    nnoremap <D-j> <C-f> " 下翻页
+    nnoremap <D-k> <C-b> " 上翻页
+endif
 
 " >>>================字体===================
 " set guifont=Monaco:h13
@@ -132,13 +134,16 @@ nnoremap <D-k> <C-b> " 上翻页
 set linespace=1
 set foldlevel=1  " 折叠层级
 " set guifont=Fira\ Code:h13
-set guifont=Ubuntu\ Mono:h15
+set guifont=Ubuntu\ Mono:h13
 " >>>================主题===================
 " Set extra options when running in GUI mode
-if has("gui_running")
+if has("mac")
     set macligatures
+endif
+if has("gui_running")
     set guioptions-=T
     set guioptions-=e
+    set guioptions-=m
     set t_Co=256
     set guitablabel=%M\ %t
 endif
@@ -558,7 +563,7 @@ Plug 'vim-scripts/matchit.zip' " % 配对拓展
 Plug 'tpope/vim-commentary' " vim comment
 " Plug 'arcticicestudio/nord-vim' " theme
 " Plug 'jacoborus/tender.vim' " theme
-Plug 'liuchengxu/vista.vim' " tags
+" Plug 'liuchengxu/vista.vim' " tags
 Plug 'rhysd/git-messenger.vim' " 显示提交信息
 
 " Plug 'zxqfl/tabnine-vim'
