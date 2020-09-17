@@ -1,6 +1,10 @@
 " 快捷键的前缀，即 <Leader>
 let mapleader=";"
 
+" 系统快捷键
+if has("win32")
+  inoremap <silent> <BS> <esc>xi
+endif
 
 
 " 让配置变更立即生效
@@ -44,6 +48,7 @@ set autoindent
 set expandtab
 set ai "Auto indent
 set si "Smart indent
+set lines=45 columns=208 " 启动后的宽高
 " >>>=========vim 自身（非插件）快捷键============
 vnoremap <Leader>y "*y:echo 'Copied'<CR>        " 设置快捷键将选中文本块复制至系统剪贴板
 nnoremap <Leader>q :q<CR>
@@ -128,13 +133,19 @@ if has("mac")
     nnoremap <D-k> <C-b> " 上翻页
 endif
 
+if has("win32")
+    nnoremap <A-j> <C-f> " 下翻页
+    nnoremap <A-k> <C-b> " 上翻页
+endif
+
+
 " >>>================字体===================
 " set guifont=Monaco:h13
 " set guifont=Menlo:h13
 set linespace=1
 set foldlevel=1  " 折叠层级
 " set guifont=Fira\ Code:h13
-set guifont=Ubuntu\ Mono:h13
+set guifont=Ubuntu\ Mono:h12
 " >>>================主题===================
 " Set extra options when running in GUI mode
 if has("mac")
@@ -169,8 +180,18 @@ nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>t :tabs<CR>
 tnoremap <leader>b <c-w>:Buffers<CR>
 tnoremap <leader>t <c-w>:tabs<CR>
-tnoremap <D-t> <c-w>:tabnew<CR>
+if has("mac") 
+  tnoremap <D-t> <c-w>:tabnew<CR>
+endif
+if has("win32") 
+  tnoremap <A-t> <c-w>:tabnew<CR>
+  nnoremap <A-t> :tabnew<CR>
+endif
+
 inoremap <silent> <c-l> <esc>$A
+if has("win32")
+  inoremap <silent> <c-h> <esc>^i
+endif
 nmap <leader>1 1gt
 nmap <leader>2 2gt
 nmap <leader>3 3gt
@@ -536,8 +557,11 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'andreshazard/vim-freemarker'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " 自动补全插件
 Plug 'airblade/vim-gitgutter' "git 工具-行内
-Plug '/usr/local/opt/fzf' "文件搜索
+if has("mac")
+  Plug '/usr/local/opt/fzf' "文件搜索
+endif
 Plug 'junegunn/fzf.vim' "vim文件搜索
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } "vim文件搜索
 Plug 'mhinz/vim-grepper' 
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter' "代码注释
