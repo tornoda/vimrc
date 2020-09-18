@@ -4,6 +4,8 @@ let mapleader=";"
 " 系统快捷键
 if has("win32")
   inoremap <silent> <BS> <esc>xi
+  vnoremap <silent> <leader>c "*y
+  map <silent> <leader>v "*p
 endif
 
 
