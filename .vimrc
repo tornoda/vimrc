@@ -1,175 +1,19 @@
-" 快捷键的前缀，即 <Leader>
+source ~/vimrc/mapping.vim
+source ~/vimrc/autocmd.vim
+source ~/vimrc/settings.vim
+
 if has("mac") 
   " source ~/.vim/my-vim-plugin/test.vim
   " cd ~/.vim/my-vim-plugin/
 endif
-let mapleader=";"
-
-" 系统快捷键
-if has("win32")
-  inoremap <silent> <BS> <esc>xi
-  vnoremap <silent> <leader>c "*y
-  map <silent> <leader>v "*p
-endif
-
-
-" 让配置变更立即生效
-nnoremap <silent> <leader>sv :source $MYVIMRC<CR>
-nnoremap <leader>v :edit $MYVIMRC<cr> "快速打开vimrc
 
 " augroup formatWhenSave
 "   " 保存文件前自动使用neoformat文件
 "   autocmd BufWritePre,InsertLeave *.jsx,*.js,*.json,*.css,*.scss,*.sass,*.html,*.less,*.vue Neoformat prettier
 " augroup END
 
-
-" >>>=========文件类型侦测============
-" 文件类型侦测
-filetype on         " 开启文件类型侦测
-filetype plugin on  " 根据侦测到的不同类型加载对应的插件
-filetype indent on  " 针对不同的文件类型采用不同的缩进格式
 runtime macros/matchit.vim " 配对 %
 
-augroup fileType
-  " 具体编辑文件类型的一般设置，比如不要 tab 等
-  autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-  " autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
-  " autocmd FileType ruby,javascript,html,css,xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
-  autocmd BufNewFile,BufRead *.tsx set filetype=typescript
-  autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
-  autocmd BufRead,BufNewFile *.scss,*.less,*sass set filetype=css
-  autocmd FileType json syntax match Comment +\/\/.\+$+ "jsonc highlight
-  "不一定有效  autocmd BufRead,BufNewFile *.jsx set filetype=javascript.html tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
-  autocmd BufRead,BufNewFile *.part set filetype=html
-  autocmd BufRead,BufNewFile *.html set filetype=html.vue " 使得在html里面也可以用vls进行配置
-  " autocmd BufRead,BufNewFile *.vue set filetype=vue.html.javascript.css.typescript
-  " autocmd BufRead,BufNewFile *.vue,*.jsx setlocal filetype=css.html.javascript tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
-  autocmd BufRead,BufNewFile *.wxml,*.shtml set filetype=html tabstop=4 shiftwidth=4 softtabstop=4
-  autocmd BufRead,BufNewFile *.wxss set filetype=css tabstop=2 shiftwidth=2 softtabstop=2
-augroup end
-" >>>=========缩进============
-set shiftwidth=2    " 设置空格为4
-set tabstop=2
-set autoindent
-set expandtab
-set ai "Auto indent
-set si "Smart indent
-set lines=45 columns=208 " 启动后的宽高
-" >>>=========vim 自身（非插件）快捷键============
-vnoremap <Leader>y "*y:echo 'Copied'<CR>        " 设置快捷键将选中文本块复制至系统剪贴板
-nnoremap <Leader>q :q<CR>
-" nnoremap <silent> + o<esc>         " 在下发插入一行
-nnoremap <silent> <Leader>w :w<CR>         " 定义快捷键保存当前窗口内容
-nnoremap <silent> <Leader>s :wa<CR>         " 定义快捷键保存当前窗口内容
-nnoremap <silent> <Leader>wj :sp<CR><c-w>j  " 下面新开一个窗口，并把光标移动到新窗口
-nnoremap <silent> <Leader>wl :vsp<CR><c-w>l
-nnoremap <silent> <leader>sa ggVG  
-nnoremap <silent> <space> viwh "空格选中当前文本对象
-nnoremap <silent> <leader>d dd " 删除一行
-imap <silent> <c-d> <esc>ddi
-" nnoremap <silent> <C-o> o<esc> " 下面加一行
-" nnoremap <Leader>WQ :wa<CR>:q<CR> " 定义快捷键保存所有窗口内容并退出 vim
-"  nnoremap <Leader>Q :qa!<CR>       " 不做任何保存，直接退出 vim
- " di => 删除这行括号里面的内容; ci => 改变这行括号里面的内容
-onoremap <silent> ( :<c-u>normal! ^f)vi(<cr>
-onoremap <silent> ) :<c-u>normal! ^f)vi(<cr>
-onoremap <silent> { :<c-u>normal! ^f}vi{<cr>
-onoremap <silent> } :<c-u>normal! ^f}vi{<cr>
-onoremap <silent> [ :<c-u>normal! ^f[vi]<cr>
-onoremap <silent> ] :<c-u>normal! ^f[vi]<cr>
-onoremap <silent> ' :<c-u>normal! ^f'vi'<cr>
-onoremap <silent> " :<c-u>normal! ^f"vi"<cr>
-
-" test
-onoremap p i(
-
-nnoremap <silent> 'k <c-w>k:q<cr>
-nnoremap <silent> 'j <c-w>j:q<cr>
-nnoremap <silent> 'h <c-w>h:q<cr>
-nnoremap <silent> 'l <c-w>l:q<cr>
-
-
-" >>>================其他===================
-set autoread " Set to auto read when a file is changed from the outside
-set helplang=cn
-set langmenu=zh_CN.UTF-8
-set completeopt=longest,menu " 自带代码补全？
-set title " 窗口显示文件名
-set encoding=utf-8
-set smartindent "代码折叠
-set ruler "显示当前列号，看右下角
-set path=./*  "设置查找路径
-set incsearch       " 开启实时搜索功能
-set ignorecase      " 搜索时大小写不敏感
-set hls
-set nocompatible    " 关闭兼容模式
-set wildmenu        " vim 自身命令行模式智能补全
-set number          " 设置行号显示
-set nowrap          " 禁止换行
-set foldmethod=indent " 设置代码折叠
-" 去掉输入错误的提示声音
-set novisualbell
-set noerrorbells
-set vb t_vb=
-set tm=500
-" set cursorcolumn
-set cursorline
-set mouse=a         " 设置鼠标滚动
-set mouse=v   " 若要使用鼠标复制内容到剪切板
-
-set scrolloff=4     " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
-" :se so=7            " 上面配置的简写
-
-" :se so=999          " 总在中间
-
-" 禁止光标闪烁
-" set gcr=a:block-blinkon0
-" 禁止滚动条
-set guioptions-=l
-set guioptions-=L
-set guioptions-=r
-set guioptions-=R
-" 分屏窗口移动, Smart way to move between windows
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-if has("mac")
-    nnoremap <D-j> <C-f> " 下翻页
-    nnoremap <D-k> <C-b> " 上翻页
-endif
-
-if has("win32")
-    nnoremap <A-j> <C-f> " 下翻页
-    nnoremap <A-k> <C-b> " 上翻页
-endif
-
-
-" >>>================字体===================
-" set guifont=Monaco:h13
-" set guifont=Menlo:h13
-set linespace=1
-set foldlevel=1  " 折叠层级
-" set guifont=Fira\ Code:h13
-if has("win32")
-  set guifont=Ubuntu\ Mono:h12
-endif
-if has("mac")
-  set guifont=Ubuntu\ Mono:h15
-endif
-" >>>================主题===================
-" Set extra options when running in GUI mode
-if has("mac")
-    set macligatures
-endif
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set guioptions-=m
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-syntax enable
 " >>>================ctags===================
 nnoremap <f5> :!ctags -R<CR>  " f5刷新tgas
 " autocmd BufWritePost * call system("ctags -R") " 每次保存文件时候自动调用ctags
@@ -182,48 +26,11 @@ let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 let g:UltiSnipsEditSplit='horizontal'
 
 " >>>================coc.nvim===================
-set hidden
-set nobackup
-set nowritebackup
-set cmdheight=1
-set updatetime=50
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>t :tabs<CR>
 tnoremap <leader>b <c-w>:Buffers<CR>
 tnoremap <leader>t <c-w>:tabs<CR>
-if has("mac") 
-  tnoremap <D-t> <c-w>:tabnew<CR>
-endif
-if has("win32") 
-  tnoremap <A-t> <c-w>:tabnew<CR>
-  nnoremap <A-t> :tabnew<CR>
-endif
 
-inoremap <silent> <c-l> <esc>$A
-if has("win32")
-  inoremap <silent> <c-h> <esc>^i
-endif
-nmap <leader>1 1gt
-nmap <leader>2 2gt
-nmap <leader>3 3gt
-nmap <leader>4 4gt
-nmap <leader>5 5gt
-nmap <leader>6 6gt
-nmap <leader>7 7gt
-nmap <leader>8 8gt
-nmap <leader>9 9gt
-nmap <leader>0 0gt
-
-tmap <leader>1 <c-w>1gt
-tmap <leader>2 <c-w>2gt
-tmap <leader>3 <c-w>3gt
-tmap <leader>4 <c-w>4gt
-tmap <leader>5 <c-w>5gt
-tmap <leader>6 <c-w>6gt
-tmap <leader>7 <c-w>7gt
-tmap <leader>8 <c-w>8gt
-tmap <leader>9 <c-w>9gt
-tmap <leader>0 <c-w>0gt
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -267,15 +74,6 @@ let g:LanguageClient_serverCommands = {
 " >>>================disable netrw===================
 :let g:loaded_netrw       = 1
 :let g:loaded_netrwPlugin = 1
-" let g:netrw_liststyle = 3
-" let g:netrw_banner = 0
-" let g:netrw_browse_split = 4
-" let g:netrw_altv = 1
-" let g:netrw_winsize = 25
-" augroup ProjectDrawer
-"   autocmd!
-"   autocmd VimEnter * :Vexplore
-" augroup END
 
 " airline 
 let g:airline#extensions#tabline#show_tab_count = 0
@@ -302,42 +100,8 @@ set rtp+=/usr/local/opt/fzf
 nnoremap <leader>ff :FZF<CR>
 nnoremap <c-p> :FZF<CR>
 " nnoremap <leader>b :Buffers<CR>
-" >>>================ale===================
-" nnoremap <silent> gd :ALEGoToDefinition<CR> "跳转定义
-" nmap tgd <Plug>(ale_go_to_definition_in_tab) "跳转定义
-" nmap <leader>gd <Plug>(ale_go_to_definition_in_split)
-" nnoremap <silent> <leader>h :ALEHover<CR> "悬浮信息
-" nnoremap <silent> <leader>u <Plug>(ale_previous_wrap) "上一条提示信息
-" nnoremap <silent> <leader>i <Plug>(ale_next_wrap) "下一条提示信息
-" nmap <silent> <leader>fm <Plug>(ale_fix)
-" let g:ale_set_balloons = 1
-" let g:ale_completion_enabled = 1
-" let g:ale_completion_delay = 50
-" let g:ale_completion_tsserver_autoimport = 1
-" let g:ale_completion_max_suggestions = 10
-" let g:ale_cursor_detail = 1 
-" let g:ale_fixers = {
-" \   'javascript': ['eslint'],
-" \   'css': ['stylelint'],
-" \   'scss': ['stylelint'],
-" \}
-" let g:ale_sign_error = 'x'
-" let g:ale_sign_warning = '!'
-" let g:ale_fix_on_save = 1
-" let g:ale_lint_delay = 200
-" let g:ale_lint_on_text_changed = 'always'
 " >>>================bufferOnly===================
 nnoremap <silent> <leader>x :Bonly!<CR> "仅保留当前buffer"
-" >>>================ycm===================
-" nnoremap <silent> gd :YcmCompleter GoTo<CR> "跳转定义
-" let g:ycm_collect_identifiers_from_tags_files = 1 "allow从tags文件中拿提示
-" let g:ycm_filepath_blacklist = {}
-" let g:ycm_key_invoke_completion = '<c-l>'
-" let g:ycm_semantic_triggers =  {
-  " \   'javascript,typescript,jsx': ['re![a-zA-Z\.]+'],
-  " \   'css,scss,sass': ['re![a-z:\s]+'],
-  " \   'html': ['re![a-z>\/]+']
-  " \ }
 " >>>================indentLine===================
 " let g:indentLine_char = '︳ '
 " let g:indentLine_char = '┼'
@@ -351,24 +115,12 @@ let g:indentLine_fileTypeExclude = ['text', 'sh', 'json']
 " >>>================grepper===================
 nnoremap <silent> <leader>` :Grepper<CR>
 " >>>================ayu===================
-set termguicolors     " enable true colors support
 let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
 " let ayucolor="dark"   " for dark version of theme
 " >>>================vim-fugitive===================
 let g:fugitive_autoreload_status = 1
 
-" >>>================terminal===================
-" set termwinkey=' " terminal前缀key(ctrl的地位)
-" nmap 't :terminal<CR> "
-" tnoremap <c-j> <c-w><c-w>j " 与normal模式表现一致
-" tnoremap <c-k> <c-w><c-w>k
-" tnoremap <c-h> <c-w><c-w>h
-" tnoremap <c-l> <c-w><c-w>l
-" tnoremap <leader>h <c-w>:hide!<CR>
-" tnoremap <leader>k <c-w>:quit!<CR>
-tnoremap <leader>c <c-w>:close!<CR>
-tnoremap <leader> <c-w>
 " >>>================nerd_commenter===================
 let g:NERDSpaceDelims = 1 "注释后加空格
 let g:NERDCustomDelimiters={
@@ -621,4 +373,3 @@ colorscheme onedark
 " colorscheme github
 " colorscheme OceanicNext
 " colorscheme dracula
-
