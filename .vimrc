@@ -1,4 +1,8 @@
 " 快捷键的前缀，即 <Leader>
+if has("mac") 
+  " source ~/.vim/my-vim-plugin/test.vim
+  " cd ~/.vim/my-vim-plugin/
+endif
 let mapleader=";"
 
 " 系统快捷键
@@ -147,7 +151,12 @@ endif
 set linespace=1
 set foldlevel=1  " 折叠层级
 " set guifont=Fira\ Code:h13
-set guifont=Ubuntu\ Mono:h12
+if has("win32")
+  set guifont=Ubuntu\ Mono:h12
+endif
+if has("mac")
+  set guifont=Ubuntu\ Mono:h15
+endif
 " >>>================主题===================
 " Set extra options when running in GUI mode
 if has("mac")
@@ -591,6 +600,7 @@ Plug 'tpope/vim-commentary' " vim comment
 " Plug 'jacoborus/tender.vim' " theme
 " Plug 'liuchengxu/vista.vim' " tags
 Plug 'rhysd/git-messenger.vim' " 显示提交信息
+Plug 'yianwillis/vimcdoc'
 
 " Plug 'zxqfl/tabnine-vim'
 " Plug 'majutsushi/tagbar' " tagbar
