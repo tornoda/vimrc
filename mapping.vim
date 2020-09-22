@@ -92,7 +92,7 @@ tnoremap <leader> <c-w>
 if has("mac") 
   tnoremap <D-t> <c-w>:tabnew<CR>
 endif
-if has("win32") 
+if has("win32") || has("unix")
   tnoremap <A-t> <c-w>:tabnew<CR>
   nnoremap <A-t> :tabnew<CR>
 endif

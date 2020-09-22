@@ -1,6 +1,6 @@
-source ./mapping.vim
-source ./autocmd.vim
-source ./settings.vim
+source ~/vimrc/mapping.vim
+source ~/vimrc/autocmd.vim
+source ~/vimrc/settings.vim
 
 if has("mac") 
   " source ~/.vim/my-vim-plugin/test.vim
