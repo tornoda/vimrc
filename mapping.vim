@@ -73,16 +73,16 @@ nmap <leader>8 8gt
 nmap <leader>9 9gt
 nmap <leader>0 0gt
 
-tmap <leader>1 <c-w>1gt
-tmap <leader>2 <c-w>2gt
-tmap <leader>3 <c-w>3gt
-tmap <leader>4 <c-w>4gt
-tmap <leader>5 <c-w>5gt
-tmap <leader>6 <c-w>6gt
-tmap <leader>7 <c-w>7gt
-tmap <leader>8 <c-w>8gt
-tmap <leader>9 <c-w>9gt
-tmap <leader>0 <c-w>0gt
+tmap <leader>1 <c-\><c-n>1gt
+tmap <leader>2 <c-\><c-n>2gt
+tmap <leader>3 <c-\><c-n>3gt
+tmap <leader>4 <c-\><c-n>4gt
+tmap <leader>5 <c-\><c-n>5gt
+tmap <leader>6 <c-\><c-n>6gt
+tmap <leader>7 <c-\><c-n>7gt
+tmap <leader>8 <c-\><c-n>8gt
+tmap <leader>9 <c-\><c-n>9gt
+tmap <leader>0 <c-\><c-n>0gt
 
 " >>>================terminal===================
 tnoremap <leader>c <c-w>:close!<CR>
@@ -93,6 +93,6 @@ if has("mac")
   tnoremap <D-t> <c-w>:tabnew<CR>
 endif
 if has("win32") || has("unix")
-  tnoremap <A-t> <c-w>:tabnew<CR>
+  tnoremap <A-t> <c-\><c-n>:tabnew<CR>
   nnoremap <A-t> :tabnew<CR>
 endif

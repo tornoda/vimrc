@@ -335,7 +335,7 @@ Plug 'tpope/vim-commentary' " vim comment
 " Plug 'jacoborus/tender.vim' " theme
 " Plug 'liuchengxu/vista.vim' " definition tree
 Plug 'rhysd/git-messenger.vim' " 显示提交信息
-Plug 'yianwillis/vimcdoc' " 中文文档
+" Plug 'yianwillis/vimcdoc' " 中文文档
 
 " Plug 'majutsushi/tagbar' " tagbar
 
