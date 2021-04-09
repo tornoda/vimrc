@@ -13,7 +13,7 @@ if has("win32")
 endif
 
 " 设置快捷键将选中文本块复制至系统剪贴板
-vnoremap <Leader>y "*y:echo 'Copied'<CR>        
+vnoremap y "*y:echo '已复制到剪切板'<CR>        
 nnoremap <Leader>q :q<CR>
 " nnoremap <silent> + o<esc>         " 在下发插入一行
 nnoremap <silent> <Leader>w :w<CR>         " 定义快捷键保存当前窗口内容
@@ -22,7 +22,7 @@ nnoremap <silent> <Leader>wj :sp<CR><c-w>j  " 下面新开一个窗口，并把�
 nnoremap <silent> <Leader>wl :vsp<CR><c-w>l
 nnoremap <silent> <leader>sa ggVG  
 nnoremap <silent> <space> viwh "空格选中当前文本对象
-nnoremap <silent> <leader>d dd " 删除一行
+nnoremap <silent> <leader>d :bdelete<CR> " 删除当前buffer
 imap <silent> <c-d> <esc>ddi
 " nnoremap <silent> <C-o> o<esc> " 下面加一行
 " nnoremap <Leader>WQ :wa<CR>:q<CR> " 定义快捷键保存所有窗口内容并退出 vim

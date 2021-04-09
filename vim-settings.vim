@@ -12,7 +12,7 @@ set expandtab
 set ai "Auto indent
 set si "Smart indent
 if has("gui")
-  set lines=45 columns=208 " 启动后的宽高
+  set lines=45 columns=160 " 启动后的宽高
 endif
 " >>>=========vim 自身（非插件）快捷键============
 
@@ -63,15 +63,15 @@ set guioptions-=R
 " set guifont=Menlo:h13
 set linespace=1
 set foldlevel=1  " 折叠层级
-" set guifont=Fira\ Code:h13
+set guifont=Fira\ Code:h13
 if has("win32")
-  set guifont=Ubuntu\ Mono:h12
+  " set guifont=Ubuntu\ Mono:h12
 endif
 if has("mac")
-  set guifont=Ubuntu\ Mono:h15
+  " set guifont=Ubuntu\ Mono:h15
 endif
 " Set extra options when running in GUI mode
-if has("macvim")
+if has("mac")
     set macligatures
 endif
 if has("gui_running")

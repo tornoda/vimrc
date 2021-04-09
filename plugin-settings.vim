@@ -45,6 +45,9 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " ----------coc-snips
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -65,10 +68,17 @@ let airline#extensions#tabline#current_first = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 ">>================nerdtree===================
+augroup nerdtreedisablecursorline
+	autocmd!
+	autocmd FileType nerdtree setlocal nocursorline
+augroup end
+let NERDTreeHighlightCursorline = 0
 nnoremap <C-n> :NERDTreeToggle<CR> " 打开或关闭文件管理导航，control + n
 nnoremap <silent> <Leader>l :NERDTreeFind<CR>zz "定位当前文件并居中
 " autocmd vimenter * NERDTree " 启动时自动打开
 let g:NERDTreeMapOpenInTab = 't'
+let g:NERDTreeCascadeSingleChildDir = 0
+let g:NERDTreeAutoDeleteBuffer = 1 " 删除文件时自动干掉buffer
 " let g:NERDTreeDirArrowExpandable = '+'
 " let g:NERDTreeDirArrowCollapsible = '-'
 " let NERDTreeShowHidden=1 "显示隐藏文件
