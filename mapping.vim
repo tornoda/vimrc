@@ -12,6 +12,13 @@ if has("win32")
   map <silent> <leader>v "*p
 endif
 
+if has("mac") && has("gui")
+  " macvim 系统复制
+  vnoremap <silent> <D-c> "*y 
+  " macvim 系统粘贴
+  inoremap <silent> <D-v> "*p
+endif
+
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap y "*y:echo '已复制到剪切板'<CR>        
 nnoremap <Leader>q :q<CR>
