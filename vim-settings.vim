@@ -1,5 +1,7 @@
 " >>>=========文件类型侦测============
 " 文件类型侦测
+set pyxversion=3
+set pythonthreehome=/usr/bin/python3
 filetype on         " 开启文件类型侦测
 filetype plugin on  " 根据侦测到的不同类型加载对应的插件
 filetype indent on  " 针对不同的文件类型采用不同的缩进格式
@@ -59,19 +61,21 @@ set guioptions-=R
 
 
 " >>>================字体===================
-" set guifont=Monaco:h13
-" set guifont=Menlo:h13
+" set guifont=Monaco:h14
+" set guifont=Menlo:h14
 set linespace=1
 set foldlevel=1  " 折叠层级
-set guifont=Fira\ Code:h13
+" set guifont=Fira\ Code:h14
+set guifont=Source\ Code\ Pro:h15
+" set guifont=Cascadia\ Code: h15
 if has("win32")
   " set guifont=Ubuntu\ Mono:h12
 endif
 if has("mac")
-  " set guifont=Ubuntu\ Mono:h15
+  " set guifont=Ubuntu\ Mono:h17
 endif
 " Set extra options when running in GUI mode
-if has("mac")
+if has("gui") && has("mac")
     set macligatures
 endif
 if has("gui_running")

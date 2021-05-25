@@ -7,5 +7,7 @@ source ~/vimrc/vim-settings.vim
 " github插件设置 + 插件按键映射
 source ~/vimrc/plugin-settings.vim
 
+source ~/vimrc/functions.vim
+
 " 我的插件
 source ~/vimrc/plugin/index.vim

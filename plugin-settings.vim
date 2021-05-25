@@ -171,8 +171,10 @@ let g:user_emmet_settings = {
   \}
 " >>>================prettier===================
 " let g:neoformat_run_all_formatters = 1
-noremap <silent> <leader>fm :Neoformat<CR>
-nnoremap <silent> <Leader>fw :Neoformat<CR>:w<CR>         " 定义快捷键保存当前窗口内容
+" noremap <silent> <leader>fm :Neoformat<CR>
+" nnoremap <silent> <Leader>fw :Neoformat<CR>:w<CR>         " 定义快捷键保存当前窗口内容
+noremap <silent> <leader>fm :Prettier<CR>
+nnoremap <silent> <Leader>fw :Prettier<CR>:w<CR>         " 定义快捷键保存当前窗口内容
 " let g:neoformat_verbose = 1
 
 " css scss
@@ -324,7 +326,7 @@ Plug 'scrooloose/nerdcommenter' "代码注释
 " Plug 'Yggdroot/indentLine' "缩进对其线
 Plug 'sbdchd/neoformat' "代码格式化
 Plug 'tpope/vim-fugitive' "git
-" Plug 'ayu-theme/ayu-vim' " or other package manager
+Plug 'ayu-theme/ayu-vim' " or other package manager
 Plug 'mattn/emmet-vim'
 Plug 'srcery-colors/srcery-vim' "主题
 Plug 'dracula/vim', { 'as': 'dracula' } " 主题
@@ -335,14 +337,14 @@ Plug 'honza/vim-snippets' " snippets source
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'NLKNguyen/papercolor-theme'
-" Plug 'endel/vim-github-colorscheme'
+Plug 'endel/vim-github-colorscheme'
 " Plug 'dracula/vim' " theme
 Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/matchit.zip' " % 配对拓展
 " Plug 'mhartington/oceanic-next' " theme
 Plug 'tpope/vim-commentary' " vim comment
 " Plug 'arcticicestudio/nord-vim' " theme
-" Plug 'jacoborus/tender.vim' " theme
+Plug 'jacoborus/tender.vim' " theme
 " Plug 'liuchengxu/vista.vim' " definition tree
 Plug 'rhysd/git-messenger.vim' " 显示提交信息
 " Plug 'yianwillis/vimcdoc' " 中文文档
@@ -351,7 +353,7 @@ Plug 'rhysd/git-messenger.vim' " 显示提交信息
 
 call plug#end()
 let g:srcery_italic = 1
-set background=light
+" set background=light
 " colorscheme solarized
 " colorscheme monokai
 " colorscheme nord
