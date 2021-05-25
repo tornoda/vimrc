@@ -13,9 +13,12 @@ set autoindent
 set expandtab
 set ai "Auto indent
 set si "Smart indent
-if has("gui")
-  set lines=45 columns=160 " 启动后的宽高
+if has("gui") && has("win32")
+  set lines=45 columns=180 " 启动后的宽高
+elseif has("gui") && has("mac")
+  set lines=50 columns=160 " 启动后的宽高
 endif
+
 " >>>=========vim 自身（非插件）快捷键============
 
 " >>>================其他===================
