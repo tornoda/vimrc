@@ -19,6 +19,9 @@ if has("mac") && has("gui")
   inoremap <silent> <D-v> "*p
 endif
 
+nnoremap <silent> <leader>h :set hls!<CR> " 切换hls
+nnoremap <silent> <leader>i :set ignorecase!<CR> " 切换ignorecase
+
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "*y:echo '已复制到剪切板'<CR>        
 nnoremap <Leader>q :q<CR>

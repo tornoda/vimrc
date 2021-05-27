@@ -23,3 +23,10 @@ function! GetHooksStateMethod()
   let part2 = stateName[1:]
   return 'set' . part1 . part2
 endfunction
+
+function! GetRangeList() 
+  let firstline = a:firstline
+  let lastline = a:lastline
+  let rangelines = getline(firstline, lastline)
+  echo rangelines
+endfunction 

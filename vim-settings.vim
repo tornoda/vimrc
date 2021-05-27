@@ -33,7 +33,6 @@ set ruler "显示当前列号，看右下角
 set path=./*  "设置查找路径
 set incsearch       " 开启实时搜索功能
 set ignorecase      " 搜索时大小写不敏感
-set hls
 set nocompatible    " 关闭兼容模式
 set wildmenu        " vim 自身命令行模式智能补全
 set number          " 设置行号显示
@@ -46,8 +45,7 @@ set vb t_vb=
 set tm=500
 " set cursorcolumn
 set cursorline
-set mouse=a         " 设置鼠标滚动
-set mouse=v   " 若要使用鼠标复制内容到剪切板
+set mouse=a         " h mouse
 
 set scrolloff=4     " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
 " :se so=7            " 上面配置的简写
