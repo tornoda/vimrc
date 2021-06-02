@@ -72,7 +72,7 @@ augroup nerdtreedisablecursorline
 	autocmd!
 	autocmd FileType nerdtree setlocal nocursorline
 augroup end
-let NERDTreeHighlightCursorline = 0
+let NERDTreeHighlightCursorline = 1
 nnoremap <C-n> :NERDTreeToggle<CR> " 打开或关闭文件管理导航，control + n
 nnoremap <silent> <Leader>l :NERDTreeFind<CR>zz "定位当前文件并居中
 " autocmd vimenter * NERDTree " 启动时自动打开
