@@ -58,11 +58,78 @@ function GetRangeList() range
 endfunction 
 
 function! MultiCommentJSX() range
-  let [firstlinecontent, lastlinecontent] = GetRangeList()
-  let firstlineComment = GetIndentWhiteSpace(indent(a:firstline)) . "\{\/\* " . TrimText(firstlinecontent)
-  let lastlineComment = lastlinecontent . " \*\/\}"
-  call setline(a:firstline, firstlineComment)
-  call setline(a:lastline, lastlineComment)
+  let firstlinecontent = getline(a:firstline)
+  let lastlinecontent = getline(a:lastline)
+  let indent = indent(a:firstline)
+
+  let isJsx = IsJSX(a:firstline, a:lastline)
+  let isSingleLine = a:firstline is# a:lastline 
+
+  let jsSingle = isSingleLine && !isJsx " js单行
+  let jsxSingle = isSingleLine && isJsx " jsx单行
+  let jsMulti = !isSingleLine && !isJsx " js多行
+  let jsxMulti = !isSingleLine && isJsx " jsx多行
+
+  if jsSingle
+  endif
+
+  if jsxSingle
+  endif
+
+  if jsMulti
+  endif
+
+  if jsxMulti
+  endif
+
+  " 删除注释
+  if isSingleLine 
+    if isJsx
+      if firstlinecontent =~ '{/\**' && lastlinecontent =~ '\**/}'
+        :execute "normal! ".a:lastline."Gdd"
+        :execute "normal! ".a:firstline."Gdd"
+        return 0
+      endif
+    endif
+  endif
+
+  " 增加注释
+  if isSingleLine
+    " 单行注释
+    if isJsx
+      let curLine = GetIndentWhiteSpace(indent(a:firstline + 1)).'{/* '.TrimText(firstlinecontent).' */}'
+      call setline(a:firstline, curLine)
+    else
+      let curLine = GetIndentWhiteSpace(indent(a:firstline)).'// '.TrimText(firstlinecontent)
+      call setline(a:firstline, curLine)
+    endif
+  else
+    " 多行注释
+    let prefix = ''
+    let surfix = ''
+    if isJsx
+      let prefix = '{'
+      let surfix = '}'
+    endif
+    let firstlineComment = GetIndentWhiteSpace(indent).prefix.'/* '
+    let lastlineComment = GetIndentWhiteSpace(indent)."*/".surfix
+    call append(a:firstline - 1, firstlineComment)
+    call append(a:lastline + 1, lastlineComment)
+  endif
+endfunction
+
+function! IsJSX(startLine, endLine)
+  let startLineContent = getline(a:startLine)
+  let endLineContent = getline(a:endLine)
+  let startLineTrimText = TrimText(startLineContent)
+  let endLineTrimText = TrimText(endLineContent)
+
+  if startLineTrimText =~ '^<' && endLineTrimText =~ '^<'
+    return 1
+  else
+    return 0
+  endif
+
 endfunction
 
 

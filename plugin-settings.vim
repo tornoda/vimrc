@@ -358,9 +358,9 @@ let g:srcery_italic = 1
 " colorscheme solarized
 " colorscheme monokai
 " colorscheme nord
-" colorscheme onedark
+colorscheme onedark
 " colorscheme tender
-colorscheme purify
+" colorscheme purify
 " colorscheme srcery
 " colorscheme mac_classic
 " colorscheme molokai
