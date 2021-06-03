@@ -38,25 +38,31 @@ function! UpperCaseFirstLetter(text)
   return part1 . part2
 endfunction
 
-function! GetRangeListLines() 
+function! GetRangeListLines() range
   let firstline = line("v")
   let lastline = line(".")
-  echo "firstline: ".firstline
+  " echo "firstline: ".firstline
   echo "lastline: ".lastline
+  return [firstline, lastline]
 endfunction
 
-# 注意没有引号，还有range关键词
-# 在range上只执行一次函数
+" 注意没有引号，还有range关键词
+" 在range上只执行一次函数
 function GetRangeList() range
   let firstline = a:firstline
   let lastline = a:lastline
-  echo "firstline: ". firstline
-  let rangelines = getline(firstline, lastline)
-  return multiComment
+  " echo "firstline: ". firstline
+  " 获取range内容
+  " let rangelines = getline(firstline, lastline)
+  return [getline(firstline), getline(lastline)]
 endfunction 
 
-function! SetMultiComment(lnum, text)
-  let commentTxt = GetRangeList()
+function! MultiCommentJSX() range
+  let [firstlinecontent, lastlinecontent] = GetRangeList()
+  let firstlineComment = GetIndentWhiteSpace(indent(a:firstline)) . "\{\/\* " . TrimText(firstlinecontent)
+  let lastlineComment = lastlinecontent . " \*\/\}"
+  call setline(a:firstline, firstlineComment)
+  call setline(a:lastline, lastlineComment)
 endfunction
 
 

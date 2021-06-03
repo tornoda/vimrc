@@ -87,6 +87,7 @@ if has("gui_running")
     set guitablabel=%M\ %t
 endif
 syntax enable
+syntax on
 
 set hidden
 set nobackup

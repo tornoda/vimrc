@@ -337,6 +337,7 @@ Plug 'honza/vim-snippets' " snippets source
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'kyoz/purify', { 'rtp': 'vim' } "theme
 Plug 'endel/vim-github-colorscheme'
 " Plug 'dracula/vim' " theme
 Plug 'mileszs/ack.vim'
@@ -357,8 +358,9 @@ let g:srcery_italic = 1
 " colorscheme solarized
 " colorscheme monokai
 " colorscheme nord
-colorscheme onedark
+" colorscheme onedark
 " colorscheme tender
+colorscheme purify
 " colorscheme srcery
 " colorscheme mac_classic
 " colorscheme molokai

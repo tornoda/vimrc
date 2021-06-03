@@ -7,6 +7,7 @@ nnoremap <leader>v :edit $MYVIMRC<cr>
 
 " 调用自己写的函数
 nmap <leader>e :call ExtendUseState()<cr>
+vnoremap <leader>\ :call MultiCommentJSX()<cr>
 
 " 系统快捷键
 if has("win32")
