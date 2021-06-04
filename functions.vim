@@ -71,6 +71,13 @@ function! MultiCommentJSX() range
   let jsxMulti = !isSingleLine && isJsx " jsx多行
 
   if jsSingle
+    " delete comment
+    if getline(a:firstline) =~ '//'
+      let noCommentLine = substitute(getline(a:firstline), '\/\/', '', 'g')
+      let noCommentLine = GetIndentWhiteSpace(indent).TrimText(noCommentLine)
+      echo noCommentLine
+    endif
+    return 0
   endif
 
   if jsxSingle
