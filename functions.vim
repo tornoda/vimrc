@@ -1,6 +1,6 @@
 function! TrimText(text)
   let str = a:text
-  let res = substitute(str, '\s', '', 'g')
+  let res = substitute(str, '^\s*', '', 'g')
   return res
 endfunction
 
@@ -57,86 +57,71 @@ function GetRangeList() range
   return [getline(firstline), getline(lastline)]
 endfunction 
 
-function! MultiCommentJSX() range
-  let firstlinecontent = getline(a:firstline)
-  let lastlinecontent = getline(a:lastline)
+" js(x) onekey comment
+function! CommentJSX() range
+  let firstlinecontent = TrimText(getline(a:firstline))
+  let lastlinecontent = TrimText(getline(a:lastline))
   let indent = indent(a:firstline)
 
-  let isJsx = IsJSX(a:firstline, a:lastline)
   let isSingleLine = a:firstline is# a:lastline 
+  let isMultiLine = !isSingleLine
 
-  let jsSingle = isSingleLine && !isJsx " js单行
-  let jsxSingle = isSingleLine && isJsx " jsx单行
-  let jsMulti = !isSingleLine && !isJsx " js多行
-  let jsxMulti = !isSingleLine && isJsx " jsx多行
-
-  if jsSingle
-    " delete comment
-    if getline(a:firstline) =~ '//'
-      let noCommentLine = substitute(getline(a:firstline), '\/\/', '', 'g')
-      let noCommentLine = GetIndentWhiteSpace(indent).TrimText(noCommentLine)
-      echo noCommentLine
-    endif
-    return 0
-  endif
-
-  if jsxSingle
-  endif
-
-  if jsMulti
-  endif
-
-  if jsxMulti
-  endif
-
-  " 删除注释
-  if isSingleLine 
-    if isJsx
-      if firstlinecontent =~ '{/\**' && lastlinecontent =~ '\**/}'
-        :execute "normal! ".a:lastline."Gdd"
-        :execute "normal! ".a:firstline."Gdd"
-        return 0
-      endif
-    endif
-  endif
-
-  " 增加注释
   if isSingleLine
-    " 单行注释
-    if isJsx
-      let curLine = GetIndentWhiteSpace(indent(a:firstline + 1)).'{/* '.TrimText(firstlinecontent).' */}'
-      call setline(a:firstline, curLine)
+    " delete js singleline comment
+    if firstlinecontent =~ '^//'
+      let noCommentLine = substitute(firstlinecontent, '\/\/', '', '')
+      let noCommentLine = GetIndentWhiteSpace(indent).TrimText(noCommentLine)
+      call setline(a:firstline, noCommentLine)
+      return 1
+    endif
+
+    " delete jsx singleline comment
+    if firstlinecontent =~ '{/\*\+\s*<.*>\s*\*\+/}' " {/***  <Demo />  ***/}
+      let noCommentLine = substitute(firstlinecontent, '{/\*\+\s*<', '<', '')
+      let noCommentLine = substitute(noCommentLine, '>\s*\*\+/}', '>', '')
+      let noCommentLine = GetIndentWhiteSpace(indent).noCommentLine
+      call setline(a:firstline, noCommentLine)
+      return 1
+    endif
+
+    " add jsx comment
+    if firstlinecontent =~ '^<.*>$'
+      let comment = GetIndentWhiteSpace(indent).'{/* '.TrimText(firstlinecontent).' */}'
+      " echo 'comment: '.comment
+      call setline(a:firstline, comment)
+      return 1
+    " elseif firstlinecontent !~ '^{/**}'
     else
-      let curLine = GetIndentWhiteSpace(indent(a:firstline)).'// '.TrimText(firstlinecontent)
-      call setline(a:firstline, curLine)
+      " add js comment
+      let comment = GetIndentWhiteSpace(indent(a:firstline)).'// '.TrimText(firstlinecontent)
+      call setline(a:firstline, comment)
+      return 1
     endif
-  else
-    " 多行注释
-    let prefix = ''
-    let surfix = ''
-    if isJsx
-      let prefix = '{'
-      let surfix = '}'
-    endif
-    let firstlineComment = GetIndentWhiteSpace(indent).prefix.'/* '
-    let lastlineComment = GetIndentWhiteSpace(indent)."*/".surfix
-    call append(a:firstline - 1, firstlineComment)
-    call append(a:lastline + 1, lastlineComment)
-  endif
-endfunction
-
-function! IsJSX(startLine, endLine)
-  let startLineContent = getline(a:startLine)
-  let endLineContent = getline(a:endLine)
-  let startLineTrimText = TrimText(startLineContent)
-  let endLineTrimText = TrimText(endLineContent)
-
-  if startLineTrimText =~ '^<' && endLineTrimText =~ '^<'
-    return 1
-  else
-    return 0
   endif
 
+  if isMultiLine
+    " remove js(x) comment
+    if (firstlinecontent =~ '/\*\+' && lastlinecontent =~ '\s*\**/')
+          \ || (firstlinecontent =~ '{/\*\+' && lastlinecontent =~ '\s*\**/}')
+      :execute "normal! ".a:lastline."Gdd"
+      :execute "normal! ".a:firstline."Gdd"
+      return 1
+      " add jsx comment
+    elseif firstlinecontent =~ '^<'
+      let beforecomment = GetIndentWhiteSpace(indent).'{/* '
+      let aftercomment = GetIndentWhiteSpace(indent)."*/}"
+      call append(a:firstline - 1, beforecomment)
+      call append(a:lastline + 1, aftercomment)
+      return 1
+      " add js comment
+    else
+      let beforecomment = GetIndentWhiteSpace(indent).'/* '
+      let aftercomment = GetIndentWhiteSpace(indent)."*/"
+      call append(a:firstline - 1, beforecomment)
+      call append(a:lastline + 1, aftercomment)
+      return 1
+    endif
+  endif
 endfunction
 
 

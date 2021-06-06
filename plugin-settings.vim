@@ -108,9 +108,9 @@ let g:indentLine_fileTypeExclude = ['text', 'sh', 'json']
 " >>>================grepper===================
 nnoremap <silent> <leader>` :Grepper<CR>
 " >>>================ayu===================
-let ayucolor="light"  " for light version of theme
+" let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
-" let ayucolor="dark"   " for dark version of theme
+let ayucolor="dark"   " for dark version of theme
 " >>>================vim-fugitive===================
 let g:fugitive_autoreload_status = 1
 
@@ -348,6 +348,7 @@ Plug 'tpope/vim-commentary' " vim comment
 Plug 'jacoborus/tender.vim' " theme
 " Plug 'liuchengxu/vista.vim' " definition tree
 Plug 'rhysd/git-messenger.vim' " 显示提交信息
+Plug 'zacanger/angr.vim' " theme
 " Plug 'yianwillis/vimcdoc' " 中文文档
 
 " Plug 'majutsushi/tagbar' " tagbar
@@ -358,13 +359,14 @@ let g:srcery_italic = 1
 " colorscheme solarized
 " colorscheme monokai
 " colorscheme nord
-colorscheme onedark
+" colorscheme onedark
 " colorscheme tender
 " colorscheme purify
 " colorscheme srcery
 " colorscheme mac_classic
 " colorscheme molokai
-" colorscheme ayu
+colorscheme ayu
+colorscheme angr
 " colorscheme PaperColor
 " colorscheme github
 " colorscheme OceanicNext
