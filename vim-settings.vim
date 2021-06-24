@@ -1,7 +1,7 @@
 " >>>=========文件类型侦测============
 " 文件类型侦测
-set pyxversion=3
-set pythonthreehome=/usr/bin/python3
+" set pyxversion=3
+" set pythonthreehome=/opt/homebrew/bin/python3
 filetype on         " 开启文件类型侦测
 filetype plugin on  " 根据侦测到的不同类型加载对应的插件
 filetype indent on  " 针对不同的文件类型采用不同的缩进格式
@@ -16,7 +16,7 @@ set si "Smart indent
 if has("gui") && has("win32")
   set lines=45 columns=180 " 启动后的宽高
 elseif has("gui") && has("mac")
-  set lines=65 columns=230 " 启动后的宽高
+  set lines=60 columns=170 " 启动后的宽高
 endif
 
 " >>>=========vim 自身（非插件）快捷键============
@@ -33,7 +33,7 @@ set ruler "显示当前列号，看右下角
 set path=./*  "设置查找路径
 set incsearch       " 开启实时搜索功能
 set ignorecase      " 搜索时大小写不敏感
-set nocompatible    " 关闭兼容模式
+" set nocompatible    " 关闭兼容模式
 set wildmenu        " vim 自身命令行模式智能补全
 set number          " 设置行号显示
 set nowrap          " 禁止换行
@@ -43,7 +43,8 @@ set novisualbell
 set noerrorbells
 set vb t_vb=
 set tm=500
-" set cursorcolumn
+set hls
+" set cursorcolumn " 竖向高亮
 set cursorline
 set mouse=a         " h mouse
 
@@ -66,8 +67,8 @@ set guioptions-=R
 " set guifont=Menlo:h14
 set linespace=1
 set foldlevel=1  " 折叠层级
-" set guifont=Fira\ Code:h14
-set guifont=Source\ Code\ Pro:h15
+" set guifont=Fira\ Code:h15
+set guifont=Source\ Code\ Pro:h16
 " set guifont=Cascadia\ Code: h15
 if has("win32")
   " set guifont=Ubuntu\ Mono:h12

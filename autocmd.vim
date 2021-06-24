@@ -4,12 +4,10 @@ augroup fileType
   " autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
   " autocmd FileType ruby,javascript,html,css,xml set tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+  " autocmd BufNewFile,BufRead *.tsx,*ts set filetype=typescript
   autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
   " autocmd FileType typescript.tsx,javascript.jsx set iskeyword+=- " 在样式文件里面写了.my-class类名后，在tsx,jsx文件中可以自动提示my-class，不仅是my
-  autocmd FileType javascript,typescript.tsx,javascript.jsx,typescript set
-        \ formatprg="\v/Users/luyulong/global_node_modules/bin/prettier-eslint --stdin
-        \ --parser babel
-        \ --log-level 'silent'"
+  autocmd FileType javascript,typescript.tsx,javascript.jsx,typescript set formatprg="\veslint_d --stdin --fix"
 
   autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
   autocmd BufRead,BufNewFile *.css set filetype=css

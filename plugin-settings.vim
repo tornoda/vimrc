@@ -11,6 +11,7 @@ endif
 runtime macros/matchit.vim " 配对 %
 
 " >>>================coc.nvim===================
+nnoremap <leader>fm :CocCommand eslint.executeAutofix<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>t :tabs<CR>
 tnoremap <leader>b <c-w>:Buffers<CR>
@@ -89,7 +90,8 @@ let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1 " 开启flow语法高亮
 " >>>================fzf===================
 set rtp+=/usr/local/opt/fzf
-nnoremap <leader>ff :FZF<CR>
+" nnoremap <leader>ff :FZF<CR>
+nnoremap <leader>ff :GFiles<CR>
 nnoremap <c-p> :FZF<CR>
 " >>>================bufferOnly===================
 nnoremap <silent> <leader>x :Bonly!<CR> "仅保留当前buffer"
@@ -105,12 +107,11 @@ let g:indentLine_color_gui = '#404143' "最浅
 " let g:indentLine_color_gui = '#ffffff' " 同onedark background
 let g:indentLine_fileTypeExclude = ['text', 'sh', 'json']
 
-" >>>================grepper===================
-nnoremap <silent> <leader>` :Grepper<CR>
+nnoremap <silent> <leader>` :Rg 
 " >>>================ayu===================
-" let ayucolor="light"  " for light version of theme
+let ayucolor="light"  " for light version of theme
 " let ayucolor="mirage" " for mirage version of theme
-let ayucolor="dark"   " for dark version of theme
+" let ayucolor="dark"   " for dark version of theme
 " >>>================vim-fugitive===================
 let g:fugitive_autoreload_status = 1
 
@@ -173,8 +174,8 @@ let g:user_emmet_settings = {
 " let g:neoformat_run_all_formatters = 1
 " noremap <silent> <leader>fm :Neoformat<CR>
 " nnoremap <silent> <Leader>fw :Neoformat<CR>:w<CR>         " 定义快捷键保存当前窗口内容
-noremap <silent> <leader>fm :Prettier<CR>
-nnoremap <silent> <Leader>fw :Prettier<CR>:w<CR>         " 定义快捷键保存当前窗口内容
+" noremap <silent> <leader>fm :Prettier<CR>
+" nnoremap <silent> <Leader>fw :Prettier<CR>:w<CR>         " 定义快捷键保存当前窗口内容
 " let g:neoformat_verbose = 1
 
 " css scss
@@ -207,12 +208,18 @@ let g:neoformat_javascript_prettier = {
 " let g:neoformat_enabled_javascript = ['eslint_d', 'prettier']
 let g:neoformat_enabled_javascript = ['prettier']
 
+let g:neoformat_typescript_eslint_d = {
+            \ 'exe': 'eslint_d',
+            \ 'args': ['--stdin', '--config ./.eslintrc.js', '--fix-to-stdout'],
+            \ 'stderr': 1,
+            \ 'stdin': 1,
+            \ }
 let g:neoformat_typescript_prettier = {
             \ 'exe': 'prettier',
             \ 'args': ['--stdin', '--config ~/cfg/prettier.config.js', '--parser babel'],
             \ 'stdin': 1,
             \ }
-let g:neoformat_enabled_typescript = ['prettier']
+let g:neoformat_enabled_typescript = ['eslint_d']
 
 " wxml
 let g:neoformat_wxml_prettier = {
@@ -250,6 +257,9 @@ let g:airline#extensions#coc#enabled = 1
 
 let g:git_messenger_always_into_popup = v:true
 let g:git_messenger_include_diff = "current"
+
+" >>>================ultisnips===================
+" let g:UltiSnipsExpandTrigger = <c-l>
 
 " >>>================vista===================
 "function! NearestMethodOrFunction() abort
@@ -313,6 +323,7 @@ Plug 'leafgarland/typescript-vim' " ts语法高亮
 Plug 'mxw/vim-jsx' " jsx 语法高亮
 Plug 'jiangmiao/auto-pairs'
 Plug 'andreshazard/vim-freemarker'
+Plug 'leafgarland/typescript-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " 自动补全插件
 Plug 'airblade/vim-gitgutter' "git 工具-行内
 if has("mac")
@@ -320,7 +331,7 @@ if has("mac")
 endif
 Plug 'junegunn/fzf.vim' "vim文件搜索
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } "vim文件搜索
-Plug 'mhinz/vim-grepper' 
+" Plug 'mhinz/vim-grepper' "fzf.vim替代
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter' "代码注释
 " Plug 'Yggdroot/indentLine' "缩进对其线
@@ -332,7 +343,7 @@ Plug 'srcery-colors/srcery-vim' "主题
 Plug 'dracula/vim', { 'as': 'dracula' } " 主题
 Plug 'altercation/vim-colors-solarized' " 主题
 Plug 'chemzqm/wxapp.vim' " 这个是小程序coc支持
-" Plug 'SirVer/ultisnips'  " snips engin
+" Plug 'SirVer/ultisnips', { 'do': '/usr/local/bin/python3 install.py' }
 Plug 'honza/vim-snippets' " snippets source
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -344,9 +355,9 @@ Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/matchit.zip' " % 配对拓展
 " Plug 'mhartington/oceanic-next' " theme
 Plug 'tpope/vim-commentary' " vim comment
-" Plug 'arcticicestudio/nord-vim' " theme
+Plug 'arcticicestudio/nord-vim' " theme
 Plug 'jacoborus/tender.vim' " theme
-" Plug 'liuchengxu/vista.vim' " definition tree
+Plug 'liuchengxu/vista.vim' " definition tree
 Plug 'rhysd/git-messenger.vim' " 显示提交信息
 Plug 'zacanger/angr.vim' " theme
 " Plug 'yianwillis/vimcdoc' " 中文文档
@@ -357,7 +368,6 @@ call plug#end()
 let g:srcery_italic = 1
 " set background=light
 " colorscheme solarized
-" colorscheme monokai
 " colorscheme nord
 " colorscheme onedark
 " colorscheme tender
@@ -365,9 +375,29 @@ let g:srcery_italic = 1
 " colorscheme srcery
 " colorscheme mac_classic
 " colorscheme molokai
-colorscheme ayu
+" colorscheme ayu
 colorscheme angr
 " colorscheme PaperColor
 " colorscheme github
 " colorscheme OceanicNext
 " colorscheme dracula
+
+
+
+" syntax
+hi Boolean gui=italic
+hi Conditional gui=italic
+hi Exception gui=italic
+hi Function gui=italic
+hi Keyword gui=italic
+hi MatchParen gui=standout
+hi Repeat gui=italic
+hi Statement gui=italic
+hi Identifier gui=italic
+hi IncSearch gui=italic
+hi Label gui=italic
+hi Type gui=italic
+hi Typedef gui=italic
+hi StorageClass gui=italic
+hi Structure gui=italic
+hi Debug gui=italic
