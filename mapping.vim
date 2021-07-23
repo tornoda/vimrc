@@ -30,8 +30,7 @@ nnoremap <silent> <leader>i :set ignorecase!<CR> " 切换ignorecase
 vnoremap <Leader>y "*y:echo '已复制到剪切板'<CR>        
 nnoremap <Leader>q :q<CR>
 " nnoremap <silent> + o<esc>         " 在下发插入一行
-nnoremap <silent> <Leader>w :w<CR>         " 定义快捷键保存当前窗口内容
-nnoremap <silent> <Leader>s :wa<CR>         " 定义快捷键保存当前窗口内容
+nnoremap <silent> <Leader>w :wa<CR>         " 定义快捷键保存当前窗口内容
 nnoremap <silent> <Leader>wj :sp<CR><c-w>j  " 下面新开一个窗口，并把光标移动到新窗口
 nnoremap <silent> <Leader>wl :vsp<CR><c-w>l
 nnoremap <silent> <leader>sa ggVG  
