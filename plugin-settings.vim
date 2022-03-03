@@ -26,7 +26,7 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
-
+nmap <silent> <leader>a <Plug>(coc-codeaction-cursor)
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -67,27 +67,32 @@ let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#show_tab_nr = 0
 let airline#extensions#tabline#current_first = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+" let g:airline#extensions#tabline#enabled = 1
 
 ">>================nerdtree===================
-augroup nerdtreedisablecursorline
-	autocmd!
-	autocmd FileType nerdtree setlocal nocursorline
-augroup end
-let NERDTreeHighlightCursorline = 1
+" augroup nerdtreedisablecursorline
+  " autocmd!
+  " autocmd FileType nerdtree setlocal nocursorline
+" augroup end
+let g:NERDTreeHighlightCursorline = 1
+" let g:NERDTreeMinimalUI = 1
+" let g:NERDTreeShowLineNumbers = 1
 nnoremap <C-n> :NERDTreeToggle<CR> " 打开或关闭文件管理导航，control + n
 nnoremap <silent> <Leader>l :NERDTreeFind<CR>zz "定位当前文件并居中
 " autocmd vimenter * NERDTree " 启动时自动打开
 let g:NERDTreeMapOpenInTab = 't'
 let g:NERDTreeCascadeSingleChildDir = 0
 let g:NERDTreeAutoDeleteBuffer = 1 " 删除文件时自动干掉buffer
-" let g:NERDTreeDirArrowExpandable = '+'
-" let g:NERDTreeDirArrowCollapsible = '-'
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
 " let NERDTreeShowHidden=1 "显示隐藏文件
 " set sw=4 sts=4 et fdm=marker:
 " >>>================vim-javascript===================
 let g:javascript_plugin_jsdoc = 1 " 开启jsdoc
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1 " 开启flow语法高亮
+">>================nerdtree-git-plugin===================
+" let g:NERDTreeGitStatusConcealBrackets = 1
 " >>>================fzf===================
 set rtp+=/usr/local/opt/fzf
 " nnoremap <leader>ff :FZF<CR>
@@ -213,6 +218,7 @@ let g:neoformat_typescript_eslint_d = {
             \ 'args': ['--stdin', '--config ./.eslintrc.js', '--fix-to-stdout'],
             \ 'stderr': 1,
             \ 'stdin': 1,
+            \ 'try_node_exe': 1,
             \ }
 let g:neoformat_typescript_prettier = {
             \ 'exe': 'prettier',
@@ -284,11 +290,22 @@ let g:vista#renderer#icons = {
 \  }
 
 " >>>================papercolor===================
+" https://github.com/NLKNguyen/papercolor-theme/blob/master/DESIGN.md
+" color00 main bg
+" color03 string;
+" color05 comment;
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.light': { 
+  \       'allow_bold': 1,
+  \       'allow_italic': 1,
   \       'override' : {
-  \         'folded_fg' : ['#C0C0C0', ''],
+  \         'color03' : ['#50808E', ''],
+  \         'color05' : ['#87BBA2', ''],
+  \         'color07' : ['#1F2D3D', ''],
+  \         'search_fg' : ['#FFFFFF', ''],
+  \         'search_bg' : ['#DB504A', ''],
+  \         'folded_fg' : ['#D3D3D3', ''],
   \         'folded_bg' : ['#EAEAEA', ''],
   \         'cursorlinenr_bg' : ['#DDDDDD', ''],
   \         'cursorlinenr_fg' : ['#339900', ''],
@@ -314,15 +331,18 @@ let g:PaperColor_Theme_Options = {
 " >>>================plugin===================
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree' " 文件管理器
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 " Plug 'ycm-core/YouCompleteMe' " 
 Plug 'editorconfig/editorconfig-vim' " editorconfig支持
 Plug 'joshdick/onedark.vim' " onedark theme
 Plug 'posva/vim-vue' " vue语法高亮
-Plug 'pangloss/vim-javascript' " js语法高亮
-Plug 'leafgarland/typescript-vim' " ts语法高亮
-Plug 'mxw/vim-jsx' " jsx 语法高亮
+" Plug 'pangloss/vim-javascript' " js语法高亮
+" Plug 'leafgarland/typescript-vim' " ts语法高亮
+" Plug 'mxw/vim-jsx' " jsx 语法高亮
+Plug 'yuezk/vim-js'
+Plug 'MaxMEllon/vim-jsx-pretty' " jsx 语法高亮
 Plug 'jiangmiao/auto-pairs'
-Plug 'andreshazard/vim-freemarker'
+" Plug 'andreshazard/vim-freemarker'
 Plug 'leafgarland/typescript-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " 自动补全插件
 Plug 'airblade/vim-gitgutter' "git 工具-行内
@@ -342,7 +362,7 @@ Plug 'mattn/emmet-vim'
 Plug 'srcery-colors/srcery-vim' "主题
 Plug 'dracula/vim', { 'as': 'dracula' } " 主题
 Plug 'altercation/vim-colors-solarized' " 主题
-Plug 'chemzqm/wxapp.vim' " 这个是小程序coc支持
+" Plug 'chemzqm/wxapp.vim' " 这个是小程序coc支持
 " Plug 'SirVer/ultisnips', { 'do': '/usr/local/bin/python3 install.py' }
 Plug 'honza/vim-snippets' " snippets source
 Plug 'vim-airline/vim-airline'
@@ -360,13 +380,25 @@ Plug 'jacoborus/tender.vim' " theme
 Plug 'liuchengxu/vista.vim' " definition tree
 Plug 'rhysd/git-messenger.vim' " 显示提交信息
 Plug 'zacanger/angr.vim' " theme
+Plug 'yasukotelin/shirotelin' " theme
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
+let g:vim_markdown_folding_disabled = 1
+
+" start
+Plug 'ghifarit53/tokyonight-vim'
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
+" colorscheme tokyonight
+" end
+" Plug 'ryanoasis/vim-devicons' " icons
 " Plug 'yianwillis/vimcdoc' " 中文文档
 
 " Plug 'majutsushi/tagbar' " tagbar
 
 call plug#end()
 let g:srcery_italic = 1
-" set background=light
+set background=light
 " colorscheme solarized
 " colorscheme nord
 " colorscheme onedark
@@ -390,14 +422,31 @@ hi Conditional gui=italic
 hi Exception gui=italic
 hi Function gui=italic
 hi Keyword gui=italic
-hi MatchParen gui=standout
+" hi MatchParen gui=standout
 hi Repeat gui=italic
 hi Statement gui=italic
 hi Identifier gui=italic
-hi IncSearch gui=italic
+" hi IncSearch gui=italic
 hi Label gui=italic
 hi Type gui=italic
 hi Typedef gui=italic
 hi StorageClass gui=italic
 hi Structure gui=italic
 hi Debug gui=italic
+" hi CursorLine gui=underline
+hi TabLineSel gui=italic guifg=#87dfaf
+
+if g:colors_name == 'angr'
+  hi Error gui=NONE guifg=#FFB6C1
+endif
+
+
+if &diff
+  " vimdiff color
+  highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#3CB371
+  highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#CD5C5C
+  highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#48D1CC
+  highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=#48D1CC
+  highlight CursorLine cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=NONE guibg=NONE
+endif
+

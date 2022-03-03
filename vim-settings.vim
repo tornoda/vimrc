@@ -63,14 +63,19 @@ set guioptions-=L
 set guioptions-=r
 set guioptions-=R
 
-
+" >>> ============= 自定义 tab title =============
+set tabline=%!MyTabLine() 
 " >>>================字体===================
-" set guifont=Monaco:h14
-" set guifont=Menlo:h14
-set linespace=1
+" let g:webdevicons_enable_nerdtree = 1 
+" set guifont=DroidSansMono\ Nerd\ Font:h11
+" set guifont=Monaco:h15
+" set guifont=Menlo:h16
+set guifont=Operator\ Mono\ Book:h17
+set linespace=3
 set foldlevel=1  " 折叠层级
+" set guifont=SF\ Mono:h17
 " set guifont=Fira\ Code:h15
-set guifont=Source\ Code\ Pro:h15
+" set guifont=Source\ Code\ Pro:h16
 " set guifont=Cascadia\ Code: h15
 if has("win32")
   " set guifont=Ubuntu\ Mono:h12

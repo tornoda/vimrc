@@ -6,7 +6,7 @@ augroup fileType
   autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
   " autocmd BufNewFile,BufRead *.tsx,*ts set filetype=typescript
   autocmd BufNewFile,BufRead *.jsx set filetype=javascript.jsx
-  " autocmd FileType typescript.tsx,javascript.jsx set iskeyword+=- " 在样式文件里面写了.my-class类名后，在tsx,jsx文件中可以自动提示my-class，不仅是my
+  autocmd FileType typescript.tsx,javascript.jsx set iskeyword+=- " 在样式文件里面写了.my-class类名后，在tsx,jsx文件中可以自动提示my-class，不仅是my
   autocmd FileType javascript,typescript.tsx,javascript.jsx,typescript set formatprg="\veslint_d --stdin --fix"
 
   autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
@@ -23,5 +23,6 @@ augroup fileType
   " autocmd BufRead,BufNewFile *.vue,*.jsx setlocal filetype=css.html.javascript tabstop=4 shiftwidth=4 softtabstop=4 expandtab ai
   autocmd BufRead,BufNewFile *.wxml,*.shtml set filetype=html tabstop=4 shiftwidth=4 softtabstop=4
   autocmd BufRead,BufNewFile *.wxss set filetype=css tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd BufEnter * let &titlestring=GetPwdName()
 augroup end
 

@@ -42,7 +42,7 @@ function! GetRangeListLines() range
   let firstline = line("v")
   let lastline = line(".")
   " echo "firstline: ".firstline
-  echo "lastline: ".lastline
+  " echo "lastline: ".lastline
   return [firstline, lastline]
 endfunction
 
@@ -130,7 +130,107 @@ function! ExtendUseState()
   let hooksMethod = 'set' . UpperCaseFirstLetter(hooksName)
   let exp = 'const [' . hooksName . ', '. hooksMethod. '] = useState()'
   let line = GetIndentWhiteSpace(indent(".")) . exp
-  echo exp
+  " echo exp
   let curLineNumber = getcurpos()["1"]
   call setline(curLineNumber, line)
+endfunction
+
+" src/components/Demo/index.tsx => Demo
+function! GetPwdName()
+  let pwd = execute('pwd')
+  let pwdName = pwd[strridx(pwd, "/") + 1:]
+  return pwdName
+endfunction
+
+function! GetShortPath()
+  let path = expand("%:p")
+  let pwdName = pwd[]
+endfunction
+
+" tab line custom
+function MyTabLine()
+  let s = ''
+  for i in range(tabpagenr('$'))
+    " select the highlighting
+    if i + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
+
+    " set the tab page number (for mouse clicks)
+    let s .= '%' . (i + 1) . 'T'
+
+    let tabName = MyTabLabel(i + 1)
+
+    " the label is made by MyTabLabel()
+    " let s .= ' '. (i + 1) . '*%{MyTabLabel(' . (i + 1) . ')} '
+    let s .= (i + 1) . '.' . tabName . '  '
+  endfor
+
+  " after the last tab fill with TabLineFill and reset tab page nr
+  let s .= '%#TabLineFill#%T'
+
+  " right-align the label to close the current tab page
+  if tabpagenr('$') > 1
+    let s .= '%=%#TabLine#%999X😎😏😍😊☺️ 😘😳😩'
+  endif
+
+  return s
+endfunction
+
+function MyTabLabel(n)
+  let buflist = tabpagebuflist(a:n)
+  let bufNames = []
+
+  for nr in buflist
+    let bufName = bufname(nr)
+
+    if bufName == ''
+     let bufName = 'EmptyBuffer'
+    endif
+
+    if stridx(bufName, 'NERD_tree') >= 0
+      continue
+    endif
+
+
+    let matchret = split(bufName, '\/')
+    let fileName = get(matchret, -1)
+    let parentName = get(matchret, -2, '')
+
+    let showName = fileName
+
+    if stridx(showName, 'index') >=0
+      let showName = parentName 
+    endif
+    
+
+    " echom 'showName: ' . showName
+
+    
+
+    " let showName = fileName
+
+    let isModified = getbufinfo(nr)[0].changed
+
+    if isModified
+      let showName = '+' . showName
+    endif
+
+    
+    call add(bufNames, showName)
+  endfor
+
+  " 当前focus的tab buffer
+  let winnr = tabpagewinnr(a:n)
+  return join(bufNames, '|')
+endfunction
+
+function! MatchTest()
+  let demo = 'axb/ajgj/abc/cde.jsx'
+  " let demo = 'cde.jsx'
+  let ret = split(demo,'\/')
+  " let ret = matchlist(demo, '\v(.*)?/?(\w+)?/?(\w+)\.(.*)')
+  " echo ret
 endfunction
