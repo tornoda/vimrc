@@ -46,8 +46,8 @@ imap <silent> <c-d> <esc>ddi
  " di => 删除这行括号里面的内容; ci => 改变这行括号里面的内容
 onoremap <silent> ( :<c-u>normal! ^f)vi(<cr>
 onoremap <silent> ) :<c-u>normal! ^f)vi(<cr>
-onoremap <silent> { :<c-u>normal! ^f}vi{<cr>
-onoremap <silent> } :<c-u>normal! ^f}vi{<cr>
+onoremap <silent> { :<c-u>normal! ^f{lvi{<cr>
+onoremap <silent> } :<c-u>normal! ^f}hvi{<cr>
 onoremap <silent> [ :<c-u>normal! ^f[vi]<cr>
 onoremap <silent> ] :<c-u>normal! ^f[vi]<cr>
 onoremap <silent> ' :<c-u>normal! ^f'vi'<cr>

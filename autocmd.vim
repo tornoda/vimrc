@@ -24,5 +24,6 @@ augroup fileType
   autocmd BufRead,BufNewFile *.wxml,*.shtml set filetype=html tabstop=4 shiftwidth=4 softtabstop=4
   autocmd BufRead,BufNewFile *.wxss set filetype=css tabstop=2 shiftwidth=2 softtabstop=2
   autocmd BufEnter * let &titlestring=GetPwdName()
+	" autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup end
 

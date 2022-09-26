@@ -49,10 +49,10 @@ set hls
 " set cursorcolumn " 竖向高亮
 set cursorline
 set mouse=a         " h mouse
+set signcolumn=number
 
-set scrolloff=4     " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
+set scrolloff=1     " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
 " :se so=7            " 上面配置的简写
-
 " :se so=999          " 总在中间
 
 " 禁止光标闪烁
@@ -69,9 +69,10 @@ set tabline=%!MyTabLine()
 " let g:webdevicons_enable_nerdtree = 1 
 " set guifont=DroidSansMono\ Nerd\ Font:h11
 " set guifont=Monaco:h15
+set guifont=agave\ Nerd\ Font\ Mono:h17
 " set guifont=Menlo:h16
-set guifont=Operator\ Mono\ Book:h17
-set linespace=3
+" set guifont=Operator\ Mono\ Book:h17
+" set linespace=3
 set foldlevel=1  " 折叠层级
 " set guifont=SF\ Mono:h17
 " set guifont=Fira\ Code:h15
@@ -81,7 +82,8 @@ if has("win32")
   " set guifont=Ubuntu\ Mono:h12
 endif
 if has("mac")
-  " set guifont=Ubuntu\ Mono:h17
+  " set guifont=Ubuntu\ Mono:h18
+  " set linespace=2
 endif
 " Set extra options when running in GUI mode
 if has("gui") && has("mac")
@@ -101,5 +103,5 @@ set hidden
 set nobackup
 set nowritebackup
 set cmdheight=1
-set updatetime=50
+set updatetime=100
 set termguicolors     " enable true colors support

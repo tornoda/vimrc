@@ -11,17 +11,20 @@ endif
 runtime macros/matchit.vim " 配对 %
 
 " >>>================coc.nvim===================
-nnoremap <leader>fm :CocCommand eslint.executeAutofix<CR>
+" nnoremap <leader>fm :CocCommand eslint.executeAutofix<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>t :tabs<CR>
 tnoremap <leader>b <c-w>:Buffers<CR>
 tnoremap <leader>t <c-w>:tabs<CR>
 
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ CheckBackspace() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
@@ -47,7 +50,12 @@ function! s:show_documentation()
   endif
 endfunction
 
+vmap <leader>fm  <Plug>(coc-format-selected)
+nmap <leader>fm  <Plug>(coc-format)
+
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 " prettier
+" nnoremap <leader>fm :Prettier<CR>
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " ----------coc-snips
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
@@ -83,8 +91,10 @@ nnoremap <silent> <Leader>l :NERDTreeFind<CR>zz "定位当前文件并居中
 let g:NERDTreeMapOpenInTab = 't'
 let g:NERDTreeCascadeSingleChildDir = 0
 let g:NERDTreeAutoDeleteBuffer = 1 " 删除文件时自动干掉buffer
-let g:NERDTreeDirArrowExpandable = '+'
-let g:NERDTreeDirArrowCollapsible = '-'
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
+let g:NERDTreeMinimalUI = 0
+let g:NERDTreeWinSize = 38
 " let NERDTreeShowHidden=1 "显示隐藏文件
 " set sw=4 sts=4 et fdm=marker:
 " >>>================vim-javascript===================
@@ -113,10 +123,6 @@ let g:indentLine_color_gui = '#404143' "最浅
 let g:indentLine_fileTypeExclude = ['text', 'sh', 'json']
 
 nnoremap <silent> <leader>` :Rg 
-" >>>================ayu===================
-let ayucolor="light"  " for light version of theme
-" let ayucolor="mirage" " for mirage version of theme
-" let ayucolor="dark"   " for dark version of theme
 " >>>================vim-fugitive===================
 let g:fugitive_autoreload_status = 1
 
@@ -289,45 +295,6 @@ let g:vista#renderer#icons = {
 \   "class": "👉",
 \  }
 
-" >>>================papercolor===================
-" https://github.com/NLKNguyen/papercolor-theme/blob/master/DESIGN.md
-" color00 main bg
-" color03 string;
-" color05 comment;
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default.light': { 
-  \       'allow_bold': 1,
-  \       'allow_italic': 1,
-  \       'override' : {
-  \         'color03' : ['#50808E', ''],
-  \         'color05' : ['#87BBA2', ''],
-  \         'color07' : ['#1F2D3D', ''],
-  \         'search_fg' : ['#FFFFFF', ''],
-  \         'search_bg' : ['#DB504A', ''],
-  \         'folded_fg' : ['#D3D3D3', ''],
-  \         'folded_bg' : ['#EAEAEA', ''],
-  \         'cursorlinenr_bg' : ['#DDDDDD', ''],
-  \         'cursorlinenr_fg' : ['#339900', ''],
-  \         'cursorline' : ['#DDDDDD', ''],
-  \         'cursor_bg' : ['#000000', ''],
-  \         'cursor_fg' : ['#FFFFFF', ''],
-  \         'cursorcolumn' : ['#FFFFF', ''],
-  \         'vertsplit_fg' : ['#343434', ''],
-  \         'visual_bg' : ['#343434', ''],
-  \         'statusline_active_bg' : ['#DDDDDD', ''],
-  \         'statusline_inactive_bg' : ['#DDDDDD', ''],
-  \         'tabline_bg' : ['#DDDDDD', ''],
-  \         'tabline_active_bg' : ['#343434', ''],
-  \         'tabline_active_fg' : ['#FFFFFF', ''],
-  \         'tabline_inactive_bg' : ['#DDDDDD', ''],
-  \         'tabline_inactive_fg' : ['#343434', ''],
-  \       }
-  \     }
-  \   }
-  \ }
-
-
 " >>>================plugin===================
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree' " 文件管理器
@@ -336,14 +303,19 @@ Plug 'scrooloose/nerdtree' " 文件管理器
 Plug 'editorconfig/editorconfig-vim' " editorconfig支持
 Plug 'joshdick/onedark.vim' " onedark theme
 Plug 'posva/vim-vue' " vue语法高亮
+" Plug 'MaxMEllon/vim-jsx-pretty' " jsx 语法高亮
 " Plug 'pangloss/vim-javascript' " js语法高亮
 " Plug 'leafgarland/typescript-vim' " ts语法高亮
+" Plug 'yuezk/vim-js'
 " Plug 'mxw/vim-jsx' " jsx 语法高亮
-Plug 'yuezk/vim-js'
-Plug 'MaxMEllon/vim-jsx-pretty' " jsx 语法高亮
+
+
+Plug 'pangloss/vim-javascript' " For the basics JavaScript syntax
+Plug 'leafgarland/typescript-vim' " For the basics JavaScript syntax
+Plug 'peitalin/vim-jsx-typescript'
+
 Plug 'jiangmiao/auto-pairs'
 " Plug 'andreshazard/vim-freemarker'
-Plug 'leafgarland/typescript-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " 自动补全插件
 Plug 'airblade/vim-gitgutter' "git 工具-行内
 if has("mac")
@@ -359,7 +331,6 @@ Plug 'sbdchd/neoformat' "代码格式化
 Plug 'tpope/vim-fugitive' "git
 Plug 'ayu-theme/ayu-vim' " or other package manager
 Plug 'mattn/emmet-vim'
-Plug 'srcery-colors/srcery-vim' "主题
 Plug 'dracula/vim', { 'as': 'dracula' } " 主题
 Plug 'altercation/vim-colors-solarized' " 主题
 " Plug 'chemzqm/wxapp.vim' " 这个是小程序coc支持
@@ -368,7 +339,6 @@ Plug 'honza/vim-snippets' " snippets source
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'kyoz/purify', { 'rtp': 'vim' } "theme
 Plug 'endel/vim-github-colorscheme'
 " Plug 'dracula/vim' " theme
 Plug 'mileszs/ack.vim'
@@ -394,21 +364,23 @@ let g:tokyonight_enable_italic = 1
 " Plug 'ryanoasis/vim-devicons' " icons
 " Plug 'yianwillis/vimcdoc' " 中文文档
 
-" Plug 'majutsushi/tagbar' " tagbar
-
+" Plug 'majutsushi/tagbar' " tagba
 call plug#end()
+
+" >>>================ayu===================
+let ayucolor="light"  " for light version of theme
+" let ayucolor="mirage" " for mirage version of theme
+" let ayucolor="dark"   " for dark version of theme
+
 let g:srcery_italic = 1
+set termguicolors
 set background=light
 " colorscheme solarized
 " colorscheme nord
-" colorscheme onedark
 " colorscheme tender
-" colorscheme purify
-" colorscheme srcery
-" colorscheme mac_classic
-" colorscheme molokai
 " colorscheme ayu
-colorscheme angr
+colorscheme onedark
+" colorscheme angr
 " colorscheme PaperColor
 " colorscheme github
 " colorscheme OceanicNext
@@ -433,20 +405,34 @@ hi Typedef gui=italic
 hi StorageClass gui=italic
 hi Structure gui=italic
 hi Debug gui=italic
-" hi CursorLine gui=underline
-hi TabLineSel gui=italic guifg=#87dfaf
+hi CursorLine gui=underline
 
 if g:colors_name == 'angr'
+  hi TabLineSel gui=italic guifg=#87dfaf
   hi Error gui=NONE guifg=#FFB6C1
 endif
 
+" coc-lsp
+if g:colors_name == 'PaperColor'
+  hi CocErrorSign guibg=#eeeeee guifg=Red gui=NONE
+  hi CocErrorHighlight guibg=#eeeeee guifg=Red gui=undercurl 
+  hi CocWarningHighlight guibg=#eeeeee guifg=Red gui=undercurl 
+  hi CocFloating guibg=#FFFFFF
+  hi Pmenu guibg=#FFFFFF
+  hi PmenuSbar guibg=#FFFFFF
+  hi PmenuSel guibg=#FFFFFF 
+endif
 
-if &diff
-  " vimdiff color
-  highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#3CB371
-  highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#CD5C5C
-  highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#48D1CC
-  highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=#48D1CC
-  highlight CursorLine cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=NONE guibg=NONE
+" coc-lsp
+if g:colors_name == 'onedark'
+  hi CocErrorSign guifg=#F08080 gui=NONE
+  hi CocErrorHighlight guifg=#F08080 gui=undercurl 
+
+  hi CocWarningSign guifg=#DAA520 gui=NONE
+  hi CocWarningHighlight guifg=#DAA520 gui=NONE
+  hi CocHintSign guifg=#DAA520 gui=NONE
+  hi CocInfoSign guifg=#DAA520 gui=NONE
+
+  hi CocUnusedHighlight guifg=#666666
 endif
 
